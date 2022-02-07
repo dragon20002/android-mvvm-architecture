@@ -2,7 +2,6 @@ package com.mindorks.framework.mvvm.di.component;
 
 import com.mindorks.framework.mvvm.di.module.DialogModule;
 import com.mindorks.framework.mvvm.di.scope.DialogScope;
-import com.mindorks.framework.mvvm.ui.main.rating.RateUsDialog;
 
 import dagger.Component;
 
@@ -14,6 +13,6 @@ import dagger.Component;
 @Component(modules = DialogModule.class, dependencies = AppComponent.class)
 public interface DialogComponent {
 
-    void inject(RateUsDialog dialog);
+//    void inject(RateUsDialog dialog);
 
 }

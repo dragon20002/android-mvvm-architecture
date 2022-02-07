@@ -21,7 +21,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
 import com.mindorks.framework.mvvm.data.model.db.User;
+
 import java.util.List;
 
 import io.reactivex.Single;

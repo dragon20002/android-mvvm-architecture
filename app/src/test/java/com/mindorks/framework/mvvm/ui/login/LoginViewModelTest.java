@@ -23,8 +23,7 @@ import com.mindorks.framework.mvvm.data.DataManager;
 import com.mindorks.framework.mvvm.data.model.api.LoginRequest;
 import com.mindorks.framework.mvvm.data.model.api.LoginResponse;
 import com.mindorks.framework.mvvm.utils.rx.TestSchedulerProvider;
-import io.reactivex.Single;
-import io.reactivex.schedulers.TestScheduler;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -32,6 +31,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import io.reactivex.Single;
+import io.reactivex.schedulers.TestScheduler;
 
 /**
  * Created by amitshekhar on 11/07/17.

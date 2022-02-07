@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.mindorks.framework.mvvm.ViewModelProviderFactory;
 import com.mindorks.framework.mvvm.data.DataManager;
 import com.mindorks.framework.mvvm.ui.base.BaseDialog;
-import com.mindorks.framework.mvvm.ui.main.rating.RateUsViewModel;
 import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
 
 import dagger.Module;
@@ -25,11 +24,11 @@ public class DialogModule {
         this.dialog = dialog;
     }
 
-    @Provides
-    RateUsViewModel provideRateUsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        Supplier<RateUsViewModel> supplier = () -> new RateUsViewModel(dataManager, schedulerProvider);
-        ViewModelProviderFactory<RateUsViewModel> factory = new ViewModelProviderFactory<>(RateUsViewModel.class, supplier);
-        return new ViewModelProvider(dialog.getActivity(), factory).get(RateUsViewModel.class);
-    }
+//    @Provides
+//    RateUsViewModel provideRateUsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+//        Supplier<RateUsViewModel> supplier = () -> new RateUsViewModel(dataManager, schedulerProvider);
+//        ViewModelProviderFactory<RateUsViewModel> factory = new ViewModelProviderFactory<>(RateUsViewModel.class, supplier);
+//        return new ViewModelProvider(dialog.getActivity(), factory).get(RateUsViewModel.class);
+//    }
 
 }

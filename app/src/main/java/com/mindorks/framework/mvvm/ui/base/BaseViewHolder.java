@@ -16,8 +16,9 @@
 
 package com.mindorks.framework.mvvm.ui.base;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by amitshekhar on 11/07/17.

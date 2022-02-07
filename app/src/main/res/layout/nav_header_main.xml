@@ -20,9 +20,9 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.mindorks.framework.mvvm.ui.main.MainViewModel" />
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.mindorks.framework.mvvm.ui.main.MainViewModel" />-->
 
     </data>
 
@@ -41,20 +41,20 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_mindorks_logo" />
 
-        <TextView
-            android:id="@+id/tv_name"
-            style="@style/TextStyle.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@{viewModel.userName}" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_name"-->
+<!--            style="@style/TextStyle.Title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="@{viewModel.userName}" />-->
 
-        <TextView
-            android:id="@+id/tv_email"
-            style="@style/TextStyle.Title.Sub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.userEmail}" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_email"-->
+<!--            style="@style/TextStyle.Title.Sub"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@{viewModel.userEmail}" />-->
 
     </LinearLayout>
 

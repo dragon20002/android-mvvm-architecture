@@ -19,6 +19,7 @@ package com.mindorks.framework.mvvm.data.remote;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mindorks.framework.mvvm.di.ApiInfo;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 

@@ -17,6 +17,7 @@
 package com.mindorks.framework.mvvm.utils;
 
 import com.mindorks.framework.mvvm.BuildConfig;
+
 import timber.log.Timber;
 
 /**
