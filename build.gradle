@@ -19,10 +19,11 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:7.1.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -32,7 +33,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url 'https://maven.google.com' }
+        mavenCentral()
         google()
     }
 }
@@ -44,35 +45,35 @@ task clean(type: Delete) {
 // Define versions in a single place
 ext {
     // Sdk and tools
-    minSdkVersion = 16
-    targetSdkVersion = 28
-    compileSdkVersion = 28
-    buildToolsVersion = '28.0.3'
-    constraintLayoutVersion = '1.1.3'
-    recyclerViewVersion = '1.0.0'
+    minSdkVersion = 21
+    targetSdkVersion = 32
+    compileSdkVersion = 32
+    buildToolsVersion = '32.0.0'
+    constraintLayoutVersion = '2.1.3'
+    recyclerViewVersion = '1.2.1'
     cardViewVersion = '1.0.0'
 
     // App dependencies
-    supportLibraryVersion = '1.1.0'
-    materialVersion = '1.0.0'
-    vectorDrawableVersion = '1.0.1'
-    animatedVectorDrawableVersion = '1.0.0'
-    gsonVersion = '2.8.2'
-    calligraphyVersion = '2.2.0'
-    glideVersion = '3.7.0'
-    roomDatabaseVersion = '2.0.0'
-    rx2FastAndroidNetworking = '1.0.1'
+    supportLibraryVersion = '1.4.1'
+    materialVersion = '1.5.0'
+    vectorDrawableVersion = '1.1.0'
+    animatedVectorDrawableVersion = '1.1.0'
+    gsonVersion = '2.8.9'
+    calligraphyVersion = '2.3.0'
+    glideVersion = '4.12.0'
+    roomDatabaseVersion = '2.4.1'
+    rx2FastAndroidNetworking = '1.0.2'
 
-    dagger2Version = '2.16'
-    rxjava2Version = '2.1.9'
-    rxandroidVersion = '2.0.2'
+    dagger2Version = '2.40.5'
+    rxjava2Version = '2.2.21'
+    rxandroidVersion = '2.1.1'
     placeholderviewVersion = '0.6.1'
     debugDBVersion = '1.0.3'
-    timberVersion = '4.5.1'
-    lifecycleVersion = '2.0.0'
+    timberVersion = '5.0.1'
+    lifecycleVersion = '2.2.0'
 
     // Test dependencies
-    junitVersion = '4.12'
-    espressoVersion = '3.1.0'
-    mockitoVersion = '2.15.0'
+    junitVersion = '4.13.2'
+    espressoVersion = '3.4.0'
+    mockitoVersion = '4.3.1'
 }

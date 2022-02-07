@@ -19,7 +19,6 @@ apply from: '../config/quality/quality.gradle'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.mindorks.framework.mvvm"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -108,7 +107,8 @@ dependencies {
 
     // view model
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycleVersion"
+//    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycleVersion"
+    runtimeOnly "androidx.lifecycle:lifecycle-common-java8:2.4.0"
 }
 
 configurations.all {
