@@ -22,9 +22,14 @@ import dagger.Provides;
 public class FragmentModule {
 
     private BaseFragment<?, ?> fragment;
+    private com.mindorks.framework.mvvm.ui.base2.BaseFragment<?, ?> fragment2;
 
     public FragmentModule(BaseFragment<?, ?> fragment) {
         this.fragment = fragment;
+    }
+
+    public FragmentModule(com.mindorks.framework.mvvm.ui.base2.BaseFragment<?, ?> fragment) {
+        this.fragment2 = fragment;
     }
 
     @Provides

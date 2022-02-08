@@ -24,12 +24,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import androidx.activity.ComponentActivity;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 
 import com.mindorks.framework.mvvm.MvvmApp;
 import com.mindorks.framework.mvvm.di.component.ActivityComponent;
@@ -41,13 +38,13 @@ import com.mindorks.framework.mvvm.utils.NetworkUtils;
 
 import javax.inject.Inject;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 /**
  * Created by amitshekhar on 07/07/17.
  */
 
-public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends ComponentActivity
+public abstract class BaseActivity<T extends BaseState, V extends BaseViewModel> extends ComponentActivity
         implements BaseFragment.Callback {
 
     // TODO
@@ -55,25 +52,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     // since its going to be common for all the activities
     private ProgressDialog mProgressDialog;
 
-    private T mViewDataBinding;
-
     @Inject
     protected V mViewModel;
 
     /**
      * Override for set binding variable
      *
-     * @return variable id
+     * @return State Holder
      */
-    public abstract int getBindingVariable();
-
-    /**
-     * @return layout resource id
-     */
-    // public abstract
-    // @LayoutRes
-    // int getLayoutId();
-
+    public abstract T getState();
 
     @Override
     public void onFragmentAttached() {
@@ -87,18 +74,13 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         performDependencyInjection(getBuildComponent());
         super.onCreate(savedInstanceState);
-        performDataBinding();
-    }
-
-    public T getViewDataBinding() {
-        return mViewDataBinding;
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -153,10 +135,5 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         mProgressDialog = CommonUtils.showLoadingDialog(this);
     }
 
-    private void performDataBinding() {
-        mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
-        mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
-        mViewDataBinding.executePendingBindings();
-    }
 }
 

@@ -26,7 +26,9 @@ import com.mindorks.framework.mvvm.utils.AppLogger;
 
 import javax.inject.Inject;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
 
 /**
  * Created by amitshekhar on 07/07/17.
@@ -56,6 +58,8 @@ public class MvvmApp extends Application {
             AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);
         }
 
-        CalligraphyConfig.initDefault(mCalligraphyConfig);
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(mCalligraphyConfig))
+                .build());
     }
 }
