@@ -6,42 +6,84 @@
 
 @Composable 내에서 상태관리
 
+```java
+@Composable
+fun MyApp() {
+    MyTheme {
+        val scaffoldState = rememberScaffoldState() // useRef ScaffoldState
+        val coroutineScope = rememberCoroutineScope() // useCoroutineScope
+
+        Scaffold(scaffoldState = scaffoldState) {
+            MyContent(
+                showSnackbar = { message ->
+                    coroutineScope.launch {
+                        scaffoldState.snackbarHostState.showSnackbar(message)
+                    }
+                }
+            )
+        }
+    }
+}
+```
+
 ### 2. State Holder
 
 ```java
 /* State Holder */
-class AppState --> `ViewModel`
-{
-    ...control views...
+// Plain class that manages App's UI logic and UI elements' state
+class MyAppState(
+    val scaffoldState: ScaffoldState,
+    val navController: NavHostController,
+    private val resources: Resources,
+    /* ... */
+) {
+    val bottomBarTabs = /* State */
+
+    // Logic to decide when to show the bottom bar
+    val shouldShowBottomBar: Boolean
+        get() = /* ... */
+
+    // Navigation logic, which is a type of UI logic
+    fun navigateToBottomBarRoute(route: String) { /* ... */ }
+
+    // Show snackbar using Resources
+    fun showSnackbar(message: String) { /* ... */ }
+}
+
+/* remember Composable */
+@Composable
+fun rememberMyAppState(
+    scaffoldState: ScaffoldState = rememberScaffoldState(),
+    navController: NavHostController = rememberNavController(),
+    resources: Resources = LocalContext.current.resources,
+    /* ... */
+) = remember(scaffoldState, navController, resources, /* ... */) {
+    // 필요한 상태값에 대한 `remember`를 `State Holder`로 한번에 가져옴
+    MyAppState(scaffoldState, navController, resources, /* ... */)
 }
 ```
+
 ```java
-// `remember Composable`에서 State Holder 사용
 @Composable
-fun rememberAppState( --> `DI`
-    ...required viewStates..., res
-) = remember(...{required viewStates}...) {
-    AppState(...)
-}
-```
-```java
-// 뷰에서 `remember Composable` 사용
-@Composable
-fun App() {
-    AppTheme {
-        val appState = rememberAppState()
+fun MyApp() {
+    MyTheme {
+        // 필요한 상태값에 대한 `remember`를 `State Holder`로 한번에 가져옴
+        val myAppState = rememberMyAppState()
+
         Scaffold(
-            scaffoldState = appState.scaffoldState,
+            scaffoldState = myAppState.scaffoldState,
             bottomBar = {
-                if (appState.shouldShowBottomBar) {
+                if (myAppState.shouldShowBottomBar) {
                     BottomBar(
-                        tabs = appState.bottomBarTabs,
-                        ...
+                        tabs = myAppState.bottomBarTabs,
+                        navigateToRoute = {
+                            myAppState.navigateToBottomBarRoute(it)
+                        }
                     )
                 }
             }
         ) {
-            ...children...
+            NavHost(navController = myAppState.navController, "initial") { /* ... */ }
         }
     }
 }
@@ -56,8 +98,7 @@ data class ExampleUiState(
     userMessages: List<Message> = emptyList(),
     loading: Boolean = false
 )
-```
-```java
+
 // Action
 class ExampleViewModel(
     private val repository: MyRepository,
@@ -73,6 +114,7 @@ class ExampleViewModel(
     fun somethingRelatedToBusinessLogic() { ... }
 }
 ```
+
 ```java
 @Composable
 fun ExampleScreen(viewModel: ExampleViewModel = viewModel()) {
@@ -94,12 +136,32 @@ private class ExampleState(
     val lazyListState: LazyListState,
     private val resources: Resources,
     private val expandedItems: List<Item> = emptyList()
-) { ... }
-```
-```java
+) {
+    val bottomBarTabs = /* State */
+
+    // Logic to decide when to show the bottom bar
+    val shouldShowBottomBar: Boolean
+        get() = /* ... */
+
+    // Navigation logic, which is a type of UI logic
+    fun navigateToBottomBarRoute(route: String) { /* ... */ }
+
+    // Show snackbar using Resources
+    fun showSnackbar(message: String) { /* ... */ }
+
+    // Check if item is expanded
+    fun isExpandedItem(item: Item) { /* ... */ }
+}
+
 @Composable
-private fun rememberExampleState(...) { ... }
+private fun rememberExampleState(
+    lazyListState: LazyListState = rememberLazyListState(),
+    resources: Resources = LocalContext.current.resources,
+) = remember(lazyListState, resources) {
+    ExampleState(lazyListState, resources)
+}
 ```
+
 ```java
 @Composable
 fun ExampleScreen(viewModel: ExampleViewModel = viewModel()) {
@@ -114,9 +176,7 @@ fun ExampleScreen(viewModel: ExampleViewModel = viewModel()) {
                 Button(onClick = { viewModel.somethingRelatedToBusinessLogic() }) {
                     Text("Do something")
                 }
-                ...
             }
-            ...
         }
     }
 }
@@ -126,5 +186,32 @@ fun ExampleScreen(viewModel: ExampleViewModel = viewModel()) {
 
 - 비즈니스 로직과 UI 로직을 분리할 수 있음
 
-## 부수 효과
+## Code Snippet
+
+### 상태값 입출력
+
+```java
+import androidx.compose.runtime.mutableStateOf
+
+@Composable
+fun TodoInputTextField(modifier: Modifier) {
+   val (text, setText) = remember { mutableStateOf("") }
+   TodoInputText(text, setText, modifier)
+}
+```
+
+```java
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+
+var text by rememberSaveable { mutableStateOf("") }
+
+OutlinedTextField(
+    value = text,
+    onValueChange = { text = it },
+    label = { Text("Label") }
+)
+```
 

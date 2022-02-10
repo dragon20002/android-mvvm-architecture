@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.mindorks.framework.mvvm.R
 import com.mindorks.framework.mvvm.di.component.ActivityComponent
 import com.mindorks.framework.mvvm.ui.base2.BaseActivity
@@ -38,8 +39,8 @@ class LoginActivity : BaseActivity<LoginState, LoginViewModel>(), LoginNavigator
     }
 
     override fun login() {
-        val email = mLoginState?.getEmail()
-        val password = mLoginState?.getPassword()
+        val email = mLoginState.getEmail()
+        val password = mLoginState.getPassword()
         if (mViewModel.isEmailAndPasswordValid(email, password)) {
             hideKeyboard()
             mViewModel.login(email, password)
@@ -64,17 +65,26 @@ class LoginActivity : BaseActivity<LoginState, LoginViewModel>(), LoginNavigator
         // TODO: compose view
         setContent {
             AndroidmvvmarchitectureTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting2("Android")
+                ProvideWindonwInsets {
+                    LoginScreen(viewModel.uiState)
                 }
             }
         }
     }
 
+}
+
+@Composable
+fun LoginScreen(
+    uiState: LoginUiState, // 비즈니스 로직 (뷰 데이터, 로직)
+    // onBackPress: () -> Unit
+) {
+    val loginState = rememberLoginState() // UI로직/UI요소 상태 관리 (뷰 보이기/숨김, 열기/닫기 등)
+
+    // ...
+    Box(modifier = Modifier.fillMaxSize()) {
+
+    }
 }
 
 @Composable
@@ -84,8 +94,9 @@ fun Greeting2(name: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview2() {
+fun LoginScreenPreview() {
     AndroidmvvmarchitectureTheme {
-        Greeting2("Android")
+        val LoginState = rememberLoginState()
+        LoginScreen(LoginState)
     }
 }
