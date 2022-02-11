@@ -27,29 +27,10 @@ import com.mindorks.framework.mvvm.utils.rx.SchedulerProvider;
  * Created by amitshekhar on 08/07/17.
  */
 
-// TODO uiState 작업
-// data class LoginUiState(
-//     val email: String = "",
-//     val password: String = "",
-// )
-
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
-
-    // TODO uiState 작업
-    // var uiState by mutableStateOf(LoginUiState())
-    //     private set
-
+    
     public LoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
-
-        // TODO uiState 작업
-        // viewModelScope.launch {
-            // uiState = LoginUiState(
-            // // 기본값 설정
-            //     email = "",
-            //     password = "",
-            // )
-        // }
     }
 
     public boolean isEmailAndPasswordValid(String email, String password) {

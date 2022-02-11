@@ -36,10 +36,6 @@ class MainActivity : BaseActivity<MainState, MainViewModel>(), MainNavigator {
         }
     }
 
-    override fun getState(): MainState? {
-        return mMainState
-    }
-
     override fun performDependencyInjection(buildComponent: ActivityComponent?) {
         buildComponent?.inject(this)
     }

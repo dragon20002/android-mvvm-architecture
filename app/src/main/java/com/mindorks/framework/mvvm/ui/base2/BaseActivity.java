@@ -55,22 +55,11 @@ public abstract class BaseActivity<T extends BaseState, V extends BaseViewModel>
     @Inject
     protected V mViewModel;
 
-    /**
-     * Override for set binding variable
-     *
-     * @return State Holder
-     */
-    public abstract T getState();
+    @Override
+    public void onFragmentAttached() {}
 
     @Override
-    public void onFragmentAttached() {
-
-    }
-
-    @Override
-    public void onFragmentDetached(String tag) {
-
-    }
+    public void onFragmentDetached(String tag) {}
 
     @Override
     protected void attachBaseContext(Context newBase) {
